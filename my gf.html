@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>A Gift For You ❤️</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+
+            background: linear-gradient(
+                135deg,
+                #ffd1e3,
+                #fff0f6,
+                #ffc2d8
+            );
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        /* =========================
+           STARTING TITLE
+        ========================= */
+
+        .title {
+            color: #ff2f6d;
+            font-size: 35px;
+            margin-bottom: 35px;
+            text-shadow: 0 3px 10px rgba(255, 47, 109, 0.2);
+        }
+
+        /* =========================
+           GIFT BOX
+        ========================= */
+
+        .gift {
+            position: relative;
+            width: 240px;
+            height: 220px;
+            margin: auto;
+        }
+
+        .box {
+            position: absolute;
+            bottom: 0;
+            left: 20px;
+
+            width: 200px;
+            height: 135px;
+
+            background: #ff4f81;
+
+            border-radius: 8px;
+
+            box-shadow:
+                0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Ribbon */
+
+        .box::before {
+            content: "";
+
+            position: absolute;
+
+            left: 85px;
+            top: 0;
+
+            width: 30px;
+            height: 135px;
+
+            background: #ffd166;
+        }
+
+        /* =========================
+           GIFT LID
+        ========================= */
+
+        .lid {
+            position: absolute;
+
+            top: 55px;
+            left: 10px;
+
+            width: 220px;
+            height: 45px;
+
+            background: #ff326c;
+
+            border-radius: 8px;
+
+            z-index: 3;
+
+            transition:
+                transform 0.8s ease;
+        }
+
+        .lid::before {
+            content: "";
+
+            position: absolute;
+
+            left: 95px;
+
+            width: 30px;
+            height: 45px;
+
+            background: #ffd166;
+        }
+
+        /* =========================
+           HEART BUTTON
+        ========================= */
+
+        .heart-button {
+            position: absolute;
+
+            top: 120px;
+            left: 85px;
+
+            width: 70px;
+            height: 70px;
+
+            background: #ff174f;
+
+            border: none;
+
+            transform: rotate(-45deg);
+
+            cursor: pointer;
+
+            z-index: 10;
+
+            box-shadow:
+                0 5px 20px rgba(255, 23, 79, 0.5);
+
+            transition:
+                transform 0.3s ease;
+        }
+
+        .heart-button::before,
+        .heart-button::after {
+            content: "";
+
+            position: absolute;
+
+            width: 70px;
+            height: 70px;
+
+            background: #ff174f;
+
+            border-radius: 50%;
+        }
+
+        .heart-button::before {
+            top: -35px;
+            left: 0;
+        }
+
+        .heart-button::after {
+            top: 0;
+            left: 35px;
+        }
+
+        .heart-button:hover {
+            transform: rotate(-45deg) scale(1.15);
+        }
+
+        .heart-text {
+            position: absolute;
+
+            z-index: 20;
+
+            color: white;
+
+            font-size: 12px;
+            font-weight: bold;
+
+            width: 100px;
+
+            left: -15px;
+            top: 27px;
+
+            transform: rotate(45deg);
+
+            pointer-events: none;
+        }
+
+        /* =========================
+           INSTRUCTION
+        ========================= */
+
+        .instruction {
+            color: #d6336c;
+
+            font-size: 18px;
+
+            margin-top: 30px;
+        }
+
+        /* =========================
+           LOVE MESSAGE
+        ========================= */
+
+        .message {
+            display: none;
+
+            animation:
+                messageAppear 1.2s ease forwards;
+        }
+
+        .message h2 {
+            color: #ff174f;
+
+            font-size: 42px;
+
+            margin: 15px;
+
+            text-shadow:
+                0 4px 15px rgba(255, 23, 79, 0.25);
+        }
+
+        .message p {
+            color: #d6336c;
+
+            font-size: 23px;
+
+            margin: 12px;
+        }
+
+        .special {
+            font-size: 27px !important;
+
+            font-weight: bold;
+
+            color: #ff2f6d !important;
+        }
+
+        /* =========================
+           FLOWERS
+        ========================= */
+
+        .flowers {
+            font-size: 60px;
+
+            margin: 20px 0;
+
+            animation:
+                flowerPop 1.2s ease forwards;
+        }
+
+        /* =========================
+           FLOATING HEARTS
+        ========================= */
+
+        .floating-heart {
+            position: fixed;
+
+            bottom: -60px;
+
+            pointer-events: none;
+
+            animation:
+                floatUp 5s linear forwards;
+        }
+
+        /* =========================
+           ANIMATIONS
+        ========================= */
+
+        @keyframes messageAppear {
+
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+
+            70% {
+                transform: scale(1.08);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes flowerPop {
+
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+
+            70% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes floatUp {
+
+            0% {
+                transform:
+                    translateY(0)
+                    rotate(0deg);
+
+                opacity: 1;
+            }
+
+            100% {
+                transform:
+                    translateY(-110vh)
+                    rotate(360deg);
+
+                opacity: 0;
+            }
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            .title {
+                font-size: 27px;
+            }
+
+            .message h2 {
+                font-size: 30px;
+            }
+
+            .message p {
+                font-size: 18px;
+            }
+
+            .flowers {
+                font-size: 42px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <div class="container">
+
+        <!-- =====================
+             GIFT SCREEN
+        ====================== -->
+
+        <div id="giftSection">
+
+            <h1 class="title">
+                🎁 A LITTLE GIFT FOR YOU 🎁
+            </h1>
+
+
+            <div class="gift">
+
+                <!-- Gift Lid -->
+                <div
+                    class="lid"
+                    id="lid">
+                </div>
+
+
+                <!-- Gift Box -->
+                <div class="box"></div>
+
+
+                <!-- Heart Button -->
+                <button
+                    class="heart-button"
+                    onclick="openGift()">
+
+                    <span class="heart-text">
+                        CLICK
+                    </span>
+
+                </button>
+
+            </div>
+
+
+            <p class="instruction">
+                ❤️ CLICK THE HEART ❤️
+            </p>
+
+        </div>
+
+
+        <!-- =====================
+             LOVE MESSAGE
+        ====================== -->
+
+        <div
+            class="message"
+            id="message">
+
+
+            <div class="flowers">
+                🌸 🌷 🌹 🌺 🌻 🌹 🌷 🌸
+            </div>
+
+
+            <h2>
+                I LOVE YOU SO MUCH! ❤️
+            </h2>
+
+
+            <p class="special">
+                YOU ARE VERY SPECIAL TO ME. 💕
+            </p>
+
+
+            <p>
+                YOU MEAN SO MUCH TO ME. 🥰
+            </p>
+
+
+            <p>
+                I WILL ALWAYS TREASURE YOU. 🌹
+            </p>
+
+
+            <div class="flowers">
+                🌷 🌸 🌹 🌺 🌻 🌺 🌹 🌸 🌷
+            </div>
+
+
+            <p class="special">
+                ❤️ I LOVE YOU! ❤️
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        /* =========================
+           OPEN THE GIFT
+        ========================= */
+
+        function openGift() {
+
+            const lid =
+                document.getElementById("lid");
+
+            const heart =
+                document.querySelector(".heart-button");
+
+
+            /* Move the lid upward */
+
+            lid.style.transform =
+                "translateY(-100px) rotate(-8deg)";
+
+
+            /* Hide heart button */
+
+            heart.style.display =
+                "none";
+
+
+            /* Wait for animation */
+
+            setTimeout(function() {
+
+                /* Hide gift */
+
+                document.getElementById(
+                    "giftSection"
+                ).style.display = "none";
+
+
+                /* Show message */
+
+                document.getElementById(
+                    "message"
+                ).style.display = "block";
+
+
+                /* Start floating hearts */
+
+                createHearts();
+
+            }, 800);
+        }
+
+
+
+        /* =========================
+           FLOATING HEARTS
+        ========================= */
+
+        function createHearts() {
+
+            setInterval(function() {
+
+                const heart =
+                    document.createElement("div");
+
+
+                heart.className =
+                    "floating-heart";
+
+
+                const hearts = [
+                    "❤️",
+                    "💗",
+                    "💕",
+                    "💖",
+                    "💘",
+                    "💓",
+                    "💞"
+                ];
+
+
+                heart.innerHTML =
+                    hearts[
+                        Math.floor(
+                            Math.random() *
+                            hearts.length
+                        )
+                    ];
+
+
+                /* Random position */
+
+                heart.style.left =
+                    Math.random() * 100 + "vw";
+
+
+                /* Random size */
+
+                heart.style.fontSize =
+                    (20 + Math.random() * 35)
+                    + "px";
+
+
+                /* Random animation speed */
+
+                heart.style.animationDuration =
+                    (3 + Math.random() * 4)
+                    + "s";
+
+
+                document.body.appendChild(
+                    heart
+                );
+
+
+                /* Remove after animation */
+
+                setTimeout(function() {
+
+                    heart.remove();
+
+                }, 7000);
+
+
+            }, 300);
+        }
+
+    </script>
+
+</body>
+</html>
